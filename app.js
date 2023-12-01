@@ -97,3 +97,30 @@ var addBinary = function (a, b) {
 };
 
 addBinary("11", "1");
+
+//problem 387: First unique character in string
+
+var firstUniqChar = function (s) {
+  //Initalize a map to keep count of characters
+  const map = new Map();
+  let count = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (!map.has(s[i])) {
+      map.set(s[i], count);
+    } else {
+      map.set(s[i], count + 1);
+    }
+  }
+
+  //Find the index of the first character with count 0
+  for (let i = 0; i < s.length; i++) {
+    if (map.get(s[i] === 0)) {
+      return i;
+    }
+  }
+
+  //If no characters with count 0 is found, return -1
+  return -1;
+};
+
+console.log(firstUniqChar("loveleetcode"));
