@@ -56,3 +56,44 @@ var pathSum = function (root, targetSum) {
 
   return recurse(root, 0);
 };
+
+// Leetcode problem 67: Add binary
+
+var addBinary = function (a, b) {
+  //create a result var as a string
+  let result = "";
+
+  let i = a.length - 1;
+  let j = b.length - 1;
+  let carry = 0;
+
+  //loop through the binary digits from right to left
+  while (i >= 0 || j >= 0) {
+    let sum = carry;
+    //sum of two bits
+    if (i >= 0) {
+      //If there are more bits in a, add the current bit to the sum
+      sum += a[i--] - "0";
+    }
+
+    if (j >= 0) {
+      //If there are more bits in a, add the current bit to the sum
+      sum += b[j--] - "0";
+    }
+
+    //Add the bit to the result
+    result = (sum % 2) + result;
+
+    //modify carry
+    carry = parseInt(sum / 2);
+  }
+
+  //check for the final time if there is any carry
+  if (carry > 0) {
+    result = 1 + result;
+  }
+
+  return result;
+};
+
+addBinary("11", "1");
