@@ -32,4 +32,27 @@ var happyNumber = function (n) {
   return recurse(n);
 };
 
-console.log(happyNumber(2));
+// console.log(happyNumber(2));
+
+// Leetcode problem 112: Path sum
+
+var pathSum = function (root, targetSum) {
+  //dfs recursion
+  function recurse(root, currSum) {
+    //base case
+    if (root === null) {
+      return false;
+    }
+
+    currSum += root.val;
+
+    if (!root.left && !root.right) {
+      //if there is no left and right leaf node then we compare the current sum to the target sum
+      return currSum === targetSum;
+    }
+
+    return recurse(root.left, currSum) || recurse(root.right, currSum);
+  }
+
+  return recurse(root, 0);
+};
