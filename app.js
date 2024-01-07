@@ -147,3 +147,27 @@ var findDuplicate = function (nums) {
 };
 
 findDuplicate([1, 3, 4, 2, 2]);
+
+var productOfArrayExceptSelf = function (nums) {
+  let start = 1;
+  let res = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    res.push(start);
+    start = start * nums[i];
+    // 1, 1, 2, 6
+  }
+
+  let start2 = 1;
+
+  for (let i = nums.length - 1; i >= 0; i--) {
+    res[i] = start2 * res[i];
+    console.log(res[i], "res[i]", i, "index");
+    start2 = start2 * nums[i];
+    console.log(start2, "start2");
+  }
+
+  return res;
+};
+
+productOfArrayExceptSelf([1, 2, 3, 4]);
