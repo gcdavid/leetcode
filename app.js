@@ -123,4 +123,27 @@ var firstUniqChar = function (s) {
   return -1;
 };
 
-console.log(firstUniqChar("loveleetcode"));
+firstUniqChar("loveleetcode");
+
+var findDuplicate = function (nums) {
+  //detect if there's a cycle
+  let tortoise = nums[0];
+  let hare = nums[0];
+
+  do {
+    tortoise = nums[tortoise];
+    hare = nums[nums[hare]];
+  } while (tortoise != hare);
+
+  //find the entrance to the cycle (duplicate number)
+  tortoise = nums[0];
+
+  while (tortoise != hare) {
+    tortoise = nums[tortoise];
+    hare = nums[hare];
+  }
+
+  return tortoise;
+};
+
+findDuplicate([1, 3, 4, 2, 2]);
