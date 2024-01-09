@@ -148,26 +148,99 @@ var findDuplicate = function (nums) {
 
 findDuplicate([1, 3, 4, 2, 2]);
 
-var productOfArrayExceptSelf = function (nums) {
-  let start = 1;
-  let res = [];
+// var productOfArrayExceptSelf = function (nums) {
+//   let start = 1;
+//   let res = [];
 
-  for (let i = 0; i < nums.length; i++) {
-    res.push(start);
-    start = start * nums[i];
-    // 1, 1, 2, 6
+//   for (let i = 0; i < nums.length; i++) {
+//     res.push(start);
+//     start = start * nums[i];
+//     // 1, 1, 2, 6
+//   }
+
+//   let start2 = 1;
+
+//   for (let i = nums.length - 1; i >= 0; i--) {
+//     res[i] = start2 * res[i];
+//     console.log(res[i], "res[i]", i, "index");
+//     start2 = start2 * nums[i];
+//     console.log(start2, "start2");
+//   }
+
+//   return res;
+// };
+
+// productOfArrayExceptSelf([1, 2, 3, 4]);
+
+function productExceptSelf(nums) {
+  const n = nums.length;
+
+  // Initialize two arrays to store products to the left and right of each element.
+  const leftProducts = new Array(n).fill(1);
+  const rightProducts = new Array(n).fill(1);
+
+  // Calculate products to the left of each element.
+  let leftProduct = 1;
+  for (let i = 1; i < n; i++) {
+    leftProduct *= nums[i - 1];
+    leftProducts[i] = leftProduct;
   }
 
-  let start2 = 1;
-
-  for (let i = nums.length - 1; i >= 0; i--) {
-    res[i] = start2 * res[i];
-    console.log(res[i], "res[i]", i, "index");
-    start2 = start2 * nums[i];
-    console.log(start2, "start2");
+  // Calculate products to the right of each element.
+  let rightProduct = 1;
+  for (let i = n - 2; i >= 0; i--) {
+    rightProduct *= nums[i + 1];
+    rightProducts[i] = rightProduct;
   }
 
-  return res;
+  // Multiply corresponding left and right products to get the final result.
+  const result = [];
+  for (let i = 0; i < n; i++) {
+    result[i] = leftProducts[i] * rightProducts[i];
+  }
+
+  return result;
+}
+
+// Example usage:
+const nums = [1, 2, 3, 4];
+const result = productExceptSelf(nums);
+
+var mergeIntervals = function (intervals) {
+  let start = 0;
+  let end = 1;
+
+  //sort array to compare the previous and current interval value
+  intervals = intervals.sort((a, b) => a[start] - b[start]);
+
+  //assign the previous variable
+  let previous = intervals[0];
+  //result variable to store the output
+  let result = [previous];
+
+  for (let current of intervals) {
+    // console.log(current, "current");
+    if (previous[end] >= current[start]) {
+      // console.log(previous[end] + ">=" + current[start]);
+
+      //get the max value from the end of prev and current
+      previous[end] = Math.max(previous[end], current[end]);
+    } else {
+      // console.log(current, "current");
+      result.push(current);
+      // console.log(previous + "=" + current);
+
+      //assign previous as current
+      previous = current;
+    }
+  }
+
+  return result;
 };
 
-productOfArrayExceptSelf([1, 2, 3, 4]);
+mergeIntervals([
+  [1, 3],
+  [2, 6],
+  [8, 10],
+  [10, 12],
+]);
