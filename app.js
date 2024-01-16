@@ -284,3 +284,32 @@ var letterCombinations = function (digits) {
 };
 
 letterCombinations("23");
+
+var subarraySum = function (nums, k) {
+  const map = new Map();
+  let count = 0;
+  let currentSum = 0;
+
+  for (let num of nums) {
+    currentSum += num;
+
+    if (currentSum === k) {
+      count++;
+    }
+
+    const complement = currentSum - k;
+    if (map.has(complement)) {
+      count += map.get(complement);
+    }
+
+    if (!map.has(currentSum)) {
+      map.set(currentSum, 0);
+    }
+
+    map.set(currentSum, map.get(currentSum) + 1);
+  }
+
+  return count;
+};
+
+subarraySum([1, 2, 1, 2, 1], 3);
