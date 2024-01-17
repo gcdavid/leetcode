@@ -313,3 +313,23 @@ var subarraySum = function (nums, k) {
 };
 
 subarraySum([1, 2, 1, 2, 1], 3);
+
+var maxProduct = function (nums) {
+  let prevMax = nums[0];
+  let prevMin = nums[0];
+  let result = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    let currMax = Math.max(nums[i], nums[i] * prevMax, nums[i] * prevMin);
+    let currMin = Math.min(nums[i], nums[i] * prevMin, nums[i] * prevMax);
+
+    prevMax = currMax;
+    prevMin = currMin;
+
+    result = Math.max(result, prevMax);
+  }
+
+  return result;
+};
+
+console.log(maxProduct([2, 3, -2, 4]));
