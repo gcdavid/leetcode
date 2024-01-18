@@ -332,4 +332,48 @@ var maxProduct = function (nums) {
   return result;
 };
 
-console.log(maxProduct([2, 3, -2, 4]));
+maxProduct([2, 3, -2, 4]);
+
+var permute = function (nums, arr = [], res = []) {
+  //base case
+  if (nums.length === 0) res.push([...arr]);
+
+  for (let i = 0; i < nums.length; i++) {
+    let rest = nums.filter((n, index) => index !== i);
+    arr.push(nums[i]);
+    permute(rest, arr, res);
+    arr.pop();
+  }
+
+  return res;
+};
+
+permute([1, 2, 3]);
+
+var mergeSortedArray = function (nums1, m, nums2, n) {
+  let i = m - 1;
+  let j = n - 1;
+  let k = m + n - 1;
+
+  while (i >= 0 && j >= 0) {
+    if (nums1[i] > nums2[j]) {
+      nums1[k] = nums1[i];
+      i--;
+    } else {
+      nums1[k] = nums2[j];
+      j--;
+    }
+
+    k--;
+  }
+
+  while (j >= 0) {
+    nums1[k] = nums2[j];
+    j--;
+    k--;
+  }
+
+  return nums1;
+};
+
+console.log(mergeSortedArray([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
