@@ -376,4 +376,30 @@ var mergeSortedArray = function (nums1, m, nums2, n) {
   return nums1;
 };
 
-console.log(mergeSortedArray([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+mergeSortedArray([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3);
+
+var combinationSum = function (candidates, target) {
+  //assign a result variable to store the possible combinations
+  let result = [];
+
+  function dfs(index, currentVal, arr) {
+    //base case
+    if (currentVal < 0) return;
+    if (currentVal === 0) {
+      result.push([...arr]);
+    }
+
+    //iterate over arr and subtract target with the arr[i]
+    for (let i = index; i < candidates.length; i++) {
+      arr.push(candidates[i]);
+      dfs(i, currentVal - candidates[i], arr);
+      arr.pop();
+    }
+  }
+
+  dfs(0, target, []);
+
+  return result;
+};
+
+console.log(combinationSum([2, 3, 6, 7], 7));
