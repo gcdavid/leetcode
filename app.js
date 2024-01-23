@@ -402,4 +402,18 @@ var combinationSum = function (candidates, target) {
   return result;
 };
 
-console.log(combinationSum([2, 3, 6, 7], 7));
+combinationSum([2, 3, 6, 7], 7);
+
+var canJump = function (nums) {
+  let target = nums.length - 1;
+
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (i + nums[i] >= target) {
+      target = i;
+    }
+  }
+
+  return target == 0;
+};
+
+canJump([3, 2, 1, 0, 4]);
