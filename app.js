@@ -417,3 +417,30 @@ var canJump = function (nums) {
 };
 
 canJump([3, 2, 1, 0, 4]);
+
+var findKthLargest = function (nums, k) {
+  nums.sort((a, b) => b - a);
+  return nums[k];
+};
+
+findKthLargest([3, 2, 1, 5, 6, 4], 2);
+
+var subsets = function (nums) {
+  let result = [[]];
+
+  var dfs = function (index, current) {
+    for (let i = index; i < nums.length; i++) {
+      current.push(nums[i]);
+      result.push([...current]);
+
+      dfs(i + 1, current);
+      //backtract
+      current.pop();
+    }
+  };
+
+  dfs(0, []);
+  return result;
+};
+
+console.log(subsets([1, 2, 3]));
