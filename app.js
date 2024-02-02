@@ -443,4 +443,33 @@ var subsets = function (nums) {
   return result;
 };
 
-console.log(subsets([1, 2, 3]));
+subsets([1, 2, 3]);
+
+function TreeNode(val, left, right) {
+  this.val = val === undefined ? 0 : val;
+  this.left = left === undefined ? null : left;
+  this.right = right === undefined ? null : right;
+}
+
+var inorderTraversal = function (root) {
+  let arr = [];
+
+  checkTree(root, arr);
+
+  function checkTree(root, arr) {
+    if (root == null) {
+      return root;
+    }
+
+    checkTree(root.left, arr);
+    arr.push(root.val);
+    checkTree(root.right, arr);
+  }
+  return arr;
+};
+
+const root = new TreeNode(1);
+root.right = new TreeNode(2);
+root.right.left = new TreeNode(3);
+
+console.log(inorderTraversal(root));
