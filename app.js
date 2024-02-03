@@ -468,8 +468,25 @@ var inorderTraversal = function (root) {
   return arr;
 };
 
-const root = new TreeNode(1);
-root.right = new TreeNode(2);
-root.right.left = new TreeNode(3);
+const isValidBST = function (root) {
+  function recurse(root, min, max) {
+    //base case
+    if (root === null) return true;
 
-console.log(inorderTraversal(root));
+    if (root.val >= max || root.val <= min) {
+      return false;
+    }
+
+    return (
+      recurse(root.left, min, root.val) && recurse(root.right, root.val, max)
+    );
+  }
+
+  return recurse(root, -Infinity, Infinity);
+};
+
+const root = new TreeNode(2);
+root.left = new TreeNode(1);
+root.right = new TreeNode(3);
+
+console.log(isValidBST(root));
