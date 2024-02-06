@@ -485,8 +485,31 @@ const isValidBST = function (root) {
   return recurse(root, -Infinity, Infinity);
 };
 
-const root = new TreeNode(2);
-root.left = new TreeNode(1);
-root.right = new TreeNode(3);
+const averageOfLevels = function (root) {
+  let q = [root];
+  let ans = [];
 
-console.log(isValidBST(root));
+  while (q.length) {
+    let qlen = q.length;
+    let row = 0;
+
+    for (let i = 0; i < qlen; i++) {
+      let curr = q.shift();
+      row += curr.val;
+
+      if (curr.left) q.push(curr.left);
+      if (curr.right) q.push(curr.right);
+    }
+    ans.push(row / qlen);
+  }
+
+  return ans;
+};
+
+const root = new TreeNode(3);
+root.left = new TreeNode(9);
+root.right = new TreeNode(20);
+root.right.left = new TreeNode(15);
+root.right.right = new TreeNode(7);
+
+console.log(averageOfLevels(root));
