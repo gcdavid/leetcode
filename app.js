@@ -512,4 +512,35 @@ root.right = new TreeNode(20);
 root.right.left = new TreeNode(15);
 root.right.right = new TreeNode(7);
 
-console.log(averageOfLevels(root));
+averageOfLevels(root);
+
+var topKFrequent = function (nums, k) {
+  let map = {};
+  let result = [];
+  let bucketSort = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    if (!map[nums[i]]) {
+      map[nums[i]] = 1;
+    } else {
+      map[nums[i]]++;
+    }
+  }
+
+  for (let [num, freq] of Object.entries(map)) {
+    if (!bucketSort[freq]) {
+      bucketSort[freq] = new Set().add(num);
+    } else {
+      bucketSort[freq] = bucketSort[freq].add(num);
+    }
+  }
+
+  for (let i = bucketSort.length; i >= 0; i--) {
+    if (bucketSort[i]) result.push(...bucketSort[i]);
+    if (result.length === k) break;
+  }
+
+  return result;
+};
+
+console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2));
