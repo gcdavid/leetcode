@@ -516,8 +516,8 @@ averageOfLevels(root);
 
 var topKFrequent = function (nums, k) {
   let map = {};
+  let bucket = [];
   let result = [];
-  let bucketSort = [];
 
   for (let i = 0; i < nums.length; i++) {
     if (!map[nums[i]]) {
@@ -528,19 +528,54 @@ var topKFrequent = function (nums, k) {
   }
 
   for (let [num, freq] of Object.entries(map)) {
-    if (!bucketSort[freq]) {
-      bucketSort[freq] = new Set().add(num);
+    if (!bucket[freq]) {
+      bucket[freq] = new Set().add(num);
     } else {
-      bucketSort[freq] = bucketSort[freq].add(num);
+      bucket[freq] = bucket[freq].add(num);
     }
   }
-
-  for (let i = bucketSort.length; i >= 0; i--) {
-    if (bucketSort[i]) result.push(...bucketSort[i]);
+  for (let i = bucket.length; i >= 0; i--) {
+    if (bucket[i]) result.push(...bucket[i]);
     if (result.length === k) break;
   }
 
   return result;
 };
 
-console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2));
+topKFrequent([1, 1, 1, 2, 2, 3], 2);
+
+var sortColors = function (nums) {
+  let count0 = 0;
+  let count1 = 0;
+  let count2 = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] == 0) {
+      count0++;
+    } else if (nums[i] == 1) {
+      count1++;
+    } else {
+      count2++;
+    }
+  }
+
+  let i = 0;
+  while (count0 > 0) {
+    nums[i] = 0;
+    count0--;
+    i++;
+  }
+
+  while (count1 > 0) {
+    nums[i] = 1;
+    count1--;
+    i++;
+  }
+
+  while (count2 > 0) {
+    nums[i] = 2;
+    count2--;
+    i++;
+  }
+};
+
+console.log(sortColors([2, 0, 2, 1, 1, 0]));
