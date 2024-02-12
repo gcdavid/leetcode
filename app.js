@@ -545,37 +545,88 @@ var topKFrequent = function (nums, k) {
 topKFrequent([1, 1, 1, 2, 2, 3], 2);
 
 var sortColors = function (nums) {
-  let count0 = 0;
-  let count1 = 0;
-  let count2 = 0;
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] == 0) {
-      count0++;
-    } else if (nums[i] == 1) {
-      count1++;
+  // let count0 = 0;
+  // let count1 = 0;
+  // let count2 = 0;
+  // for (let i = 0; i < nums.length; i++) {
+  //   if (nums[i] == 0) {
+  //     count0++;
+  //   } else if (nums[i] == 1) {
+  //     count1++;
+  //   } else {
+  //     count2++;
+  //   }
+  // }
+
+  // let i = 0;
+  // while (count0 > 0) {
+  //   nums[i] = 0;
+  //   count0--;
+  //   i++;
+  // }
+
+  // while (count1 > 0) {
+  //   nums[i] = 1;
+  //   count1--;
+  //   i++;
+  // }
+
+  // while (count2 > 0) {
+  //   nums[i] = 2;
+  //   count2--;
+  //   i++;
+  // }
+
+  // Another solution using the dutch national flag algorithm
+  let low = 0,
+    mid = 0;
+  let high = nums.length - 1;
+
+  for (let i = 0; i <= nums.length; i++) {
+    if (nums[mid] === 0) {
+      [nums[mid], nums[low]] = [nums[low], nums[mid]];
+      mid++;
+      low++;
+    } else if (nums[mid] === 2) {
+      [nums[mid], nums[high]] = [nums[high], nums[mid]];
+      mid++;
+      high--;
     } else {
-      count2++;
+      mid--;
+    }
+  }
+  return nums;
+};
+
+sortColors([2, 0, 2, 1, 1, 0]);
+
+var rotateImage = function (matrix) {
+  //transpose the matrix
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = i; j < matrix.length; j++) {
+      let temp = matrix[i][j];
+      matrix[i][j] = matrix[j][i];
+      matrix[j][i] = temp;
     }
   }
 
-  let i = 0;
-  while (count0 > 0) {
-    nums[i] = 0;
-    count0--;
-    i++;
+  //j loops till the length/2. if we go till length it will reverse back to original
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix.length / 2; j++) {
+      let temp = matrix[i][j];
+      //matrix.length - 1 - j to reverse the inwards matrix
+      matrix[i][j] = matrix[i][matrix.length - 1 - j];
+      matrix[i][matrix.length - 1 - j] = temp;
+    }
   }
 
-  while (count1 > 0) {
-    nums[i] = 1;
-    count1--;
-    i++;
-  }
-
-  while (count2 > 0) {
-    nums[i] = 2;
-    count2--;
-    i++;
-  }
+  return matrix;
 };
 
-console.log(sortColors([2, 0, 2, 1, 1, 0]));
+console.log(
+  rotateImage([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+  ])
+);
