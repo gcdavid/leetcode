@@ -733,4 +733,50 @@ node1.left.right = null;
 node1.right.left = new TreeNode(15);
 node1.right.right = new TreeNode(7);
 
-console.log(levelOrder(node1));
+levelOrder(node1);
+
+var findAnagrams = function (s, p) {
+  let map = {};
+
+  for (let c of p) {
+    map[c] = (map[c] || 0) + 1;
+  }
+
+  let rightPointer = 0,
+    leftPointer = 0,
+    count = 0;
+  let res = [];
+
+  while (rightPointer < s.length) {
+    if (map[s[rightPointer]] > 0) count++;
+    map[s[rightPointer]]--;
+    rightPointer++;
+
+    if (count === p.length) res.push(leftPointer);
+    if (rightPointer - leftPointer === p.length) {
+      if (map[s[leftPointer]] >= 0) count--;
+      map[s[leftPointer]]++;
+      leftPointer++;
+    }
+  }
+  return res;
+};
+
+findAnagrams("cbaebabacd", "aabc");
+
+var uniquePaths = function (m, n) {
+  let dp = Array.from(Array(m), () => new Array(n));
+
+  for (let i = 0; i < dp.length; i++) dp[i][0] = 1;
+  for (let i = 0; i < dp[0].length; i++) dp[0][i] = 1;
+
+  for (let i = 1; i < dp.length; i++) {
+    for (let j = 1; j < dp[0].length; j++) {
+      dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+    }
+  }
+
+  return dp[m - 1][n - 1];
+};
+
+console.log(uniquePaths(3, 7));
