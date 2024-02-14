@@ -623,10 +623,38 @@ var rotateImage = function (matrix) {
   return matrix;
 };
 
-console.log(
-  rotateImage([
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-  ])
-);
+rotateImage([
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+]);
+
+var decodeString = function (s) {
+  let charStack = [];
+  let numStack = [];
+  let currNum = 0;
+  let currStr = "";
+
+  for (let char of s) {
+    if (!isNaN(char)) {
+      console.log(char, "char");
+      //if char is 100 without currNum, each of the numbers would be push instead of 100
+      currNum = currNum * 10 + parseInt(char);
+    } else if (char == "[") {
+      numStack.push(currNum);
+      charStack.push(currStr);
+      currNum = 0;
+      currStr = "";
+    } else if (char == "]") {
+      let num = numStack.pop();
+      let prevStr = charStack.pop();
+      currStr = prevStr + currStr.repeat(num);
+    } else {
+      currStr += char;
+    }
+  }
+
+  return currStr;
+};
+
+console.log(decodeString("100[c]2[b]"));
