@@ -527,6 +527,8 @@ var topKFrequent = function (nums, k) {
     }
   }
 
+  console.log(map);
+
   for (let [num, freq] of Object.entries(map)) {
     if (!bucket[freq]) {
       bucket[freq] = new Set().add(num);
@@ -534,6 +536,8 @@ var topKFrequent = function (nums, k) {
       bucket[freq] = bucket[freq].add(num);
     }
   }
+
+  console.log(bucket);
   for (let i = bucket.length; i >= 0; i--) {
     if (bucket[i]) result.push(...bucket[i]);
     if (result.length === k) break;
@@ -637,7 +641,6 @@ var decodeString = function (s) {
 
   for (let char of s) {
     if (!isNaN(char)) {
-      console.log(char, "char");
       //if char is 100 without currNum, each of the numbers would be push instead of 100
       currNum = currNum * 10 + parseInt(char);
     } else if (char == "[") {
@@ -657,4 +660,46 @@ var decodeString = function (s) {
   return currStr;
 };
 
-console.log(decodeString("100[c]2[b]"));
+decodeString("100[c]2[b]");
+
+var Trie = function () {
+  this.root = {};
+};
+
+Trie.prototype.insert = function (word) {
+  let node = this.root;
+
+  for (let c of word) {
+    if (node[c] == null) node[c] = {};
+    node = node[c];
+  }
+
+  node.isWord = true;
+};
+
+Trie.prototype.traverse = function (word) {
+  let node = this.root;
+
+  for (let c of word) {
+    node = node[c];
+    if (node == null) return null;
+  }
+
+  return node;
+};
+
+Trie.prototype.search = function (word) {
+  let node = this.traverse(word);
+
+  return node !== null && node.isWord == true;
+};
+
+Trie.prototype.startsWith = function (prefix) {
+  let node = this.traverse(prefix);
+  return node !== null;
+};
+
+var obj = new Trie();
+obj.insert("apple");
+var word1 = obj.search("apple");
+var word2 = obj.startsWith("apple");
