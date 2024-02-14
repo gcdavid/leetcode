@@ -527,8 +527,6 @@ var topKFrequent = function (nums, k) {
     }
   }
 
-  console.log(map);
-
   for (let [num, freq] of Object.entries(map)) {
     if (!bucket[freq]) {
       bucket[freq] = new Set().add(num);
@@ -537,7 +535,6 @@ var topKFrequent = function (nums, k) {
     }
   }
 
-  console.log(bucket);
   for (let i = bucket.length; i >= 0; i--) {
     if (bucket[i]) result.push(...bucket[i]);
     if (result.length === k) break;
@@ -703,3 +700,37 @@ var obj = new Trie();
 obj.insert("apple");
 var word1 = obj.search("apple");
 var word2 = obj.startsWith("apple");
+
+var levelOrder = function (root) {
+  if (root === null) return null;
+
+  let res = [];
+  let queue = [root];
+
+  while (queue.length) {
+    let levelArr = [];
+    let levelSize = queue.length;
+
+    while (levelSize) {
+      let current = queue.shift();
+      if (current.left) queue.push(current.left);
+      if (current.right) queue.push(current.right);
+
+      levelArr.push(current.val);
+      levelSize--;
+    }
+    res.push(levelArr);
+  }
+
+  return res;
+};
+
+let node1 = new TreeNode(3);
+node1.left = new TreeNode(9);
+node1.right = new TreeNode(20);
+node1.left.left = null;
+node1.left.right = null;
+node1.right.left = new TreeNode(15);
+node1.right.right = new TreeNode(7);
+
+console.log(levelOrder(node1));
