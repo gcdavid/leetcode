@@ -779,7 +779,7 @@ var uniquePaths = function (m, n) {
   return dp[m - 1][n - 1];
 };
 
-console.log(uniquePaths(3, 7));
+uniquePaths(3, 7);
 
 var rob = function (nums) {
   if (nums.length === 0) return 0;
@@ -797,3 +797,24 @@ var rob = function (nums) {
   }
   return dp[nums.length - 1];
 };
+
+var coinChange = function (coins, amount) {
+  let dp = new Array(amount + 1).fill(Infinity);
+
+  //base case
+  dp[0] = 0;
+
+  for (let currAmount = 1; currAmount <= amount; currAmount++) {
+    for (let coin of coins) {
+      console.log(coin, "coin");
+      if (currAmount - coin >= 0) {
+        console.log(dp[currAmount], 1 + dp[currAmount - coin]);
+        dp[currAmount] = Math.min(dp[currAmount], 1 + dp[currAmount - coin]);
+      }
+    }
+  }
+
+  return dp[amount] > amount ? -1 : dp[amount];
+};
+
+console.log(coinChange([1, 2, 5], 11));
