@@ -806,9 +806,7 @@ var coinChange = function (coins, amount) {
 
   for (let currAmount = 1; currAmount <= amount; currAmount++) {
     for (let coin of coins) {
-      console.log(coin, "coin");
       if (currAmount - coin >= 0) {
-        console.log(dp[currAmount], 1 + dp[currAmount - coin]);
         dp[currAmount] = Math.min(dp[currAmount], 1 + dp[currAmount - coin]);
       }
     }
@@ -817,4 +815,50 @@ var coinChange = function (coins, amount) {
   return dp[amount] > amount ? -1 : dp[amount];
 };
 
-console.log(coinChange([1, 2, 5], 11));
+coinChange([1, 2, 5], 11);
+
+var courseSchedue = function (numCourses, prerequisites) {
+  let adjList = {};
+  let visited = new Set();
+
+  for (let [a, b] of prerequisites) {
+    if (!adjList[a]) {
+      adjList[a] = [b];
+    } else {
+      adjList[a].push(b);
+    }
+  }
+
+  console.log(adjList, "adjList");
+
+  function dfs(curr) {
+    if (visited.has(curr)) return false;
+
+    if (adjList[curr] == []) return true;
+
+    visited.add(curr);
+
+    if (adjList[curr]) {
+      for (let neigh of adjList[curr]) {
+        if (!dfs(neigh)) {
+          return false;
+        }
+      }
+    }
+
+    visited.delete(curr);
+    adjList[curr] = [];
+
+    return true;
+  }
+
+  for (let key in adjList) {
+    if (!dfs(key)) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+console.log(courseSchedue(2, [[1, 0]]));
