@@ -969,4 +969,31 @@ const list2 = new ListNode(1);
 list2.next = new ListNode(3);
 list2.next.next = new ListNode(4);
 
-console.log(mergeTwoLists(list1, list2));
+mergeTwoLists(list1, list2);
+
+var swapPairs = function (l1) {
+  let dummy = new ListNode(0);
+  dummy.next = l1;
+  let prev = dummy;
+
+  while (l1 && l1.next) {
+    let pointer1 = l1;
+    let pointer2 = l1.next;
+
+    prev.next = pointer2;
+    pointer1.next = pointer2.next;
+    pointer2.next = pointer1;
+
+    prev = pointer1;
+    l1 = l1.next;
+  }
+
+  return dummy.next;
+};
+
+const swapPairsl1 = new ListNode(1);
+swapPairsl1.next = new ListNode(2);
+swapPairsl1.next.next = new ListNode(3);
+swapPairsl1.next.next.next = new ListNode(4);
+
+console.log(swapPairs(swapPairsl1));
