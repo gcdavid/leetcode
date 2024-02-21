@@ -829,8 +829,6 @@ var courseSchedue = function (numCourses, prerequisites) {
     }
   }
 
-  console.log(adjList, "adjList");
-
   function dfs(curr) {
     if (visited.has(curr)) return false;
 
@@ -861,4 +859,38 @@ var courseSchedue = function (numCourses, prerequisites) {
   return true;
 };
 
-console.log(courseSchedue(2, [[1, 0]]));
+courseSchedue(2, [[1, 0]]);
+
+function ListNode(val, next) {
+  this.val = val === undefined ? 0 : val;
+  this.next = next === undefined ? null : next;
+}
+
+var removeNthFromEnd = function (head, n) {
+  let dummy = new ListNode(0);
+  dummy.next = head;
+
+  let left = dummy;
+  let right = head;
+
+  while (right && n > 0) {
+    right = right.next;
+    n -= 1;
+  }
+
+  while (right) {
+    left = left.next;
+    right = right.next;
+  }
+
+  left.next = left.next.next;
+  return dummy.next;
+};
+
+const head = new ListNode(1);
+head.next = new ListNode(2);
+head.next.next = new ListNode(3);
+head.next.next.next = new ListNode(4);
+head.next.next.next.next = new ListNode(5);
+
+console.log(removeNthFromEnd(head, 4));
