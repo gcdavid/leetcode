@@ -861,11 +861,6 @@ var courseSchedue = function (numCourses, prerequisites) {
 
 courseSchedue(2, [[1, 0]]);
 
-function ListNode(val, next) {
-  this.val = val === undefined ? 0 : val;
-  this.next = next === undefined ? null : next;
-}
-
 var removeNthFromEnd = function (head, n) {
   let dummy = new ListNode(0);
   dummy.next = head;
@@ -896,10 +891,6 @@ head.next.next.next.next = new ListNode(5);
 removeNthFromEnd(head, 4);
 
 var addTwoNumbers = function (l1, l2) {
-  function ListNode(val, next) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
   let dummy = new ListNode(0);
   let head = dummy;
 
@@ -938,4 +929,44 @@ const l2 = new ListNode(5);
 l2.next = new ListNode(6);
 l2.next.next = new ListNode(4);
 
-console.log(addTwoNumbers(l1, l2));
+addTwoNumbers(l1, l2);
+
+function ListNode(val, next) {
+  this.val = val === undefined ? 0 : val;
+  this.next = next === undefined ? null : next;
+}
+
+var mergeTwoLists = function (list1, list2) {
+  let List = new ListNode(0);
+  let head = List;
+
+  while (list1 && list2) {
+    if (list1.val >= list2.val) {
+      List.next = list2;
+      list2 = list2.next;
+    } else {
+      List.next = list1;
+      list1 = list1.next;
+    }
+
+    List = List.next;
+  }
+
+  if (list1 != null) {
+    List.next = list1;
+  } else {
+    List.next = list2;
+  }
+
+  return head.next;
+};
+
+const list1 = new ListNode(1);
+list1.next = new ListNode(2);
+list1.next.next = new ListNode(4);
+
+const list2 = new ListNode(1);
+list2.next = new ListNode(3);
+list2.next.next = new ListNode(4);
+
+console.log(mergeTwoLists(list1, list2));
