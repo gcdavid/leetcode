@@ -893,4 +893,49 @@ head.next.next = new ListNode(3);
 head.next.next.next = new ListNode(4);
 head.next.next.next.next = new ListNode(5);
 
-console.log(removeNthFromEnd(head, 4));
+removeNthFromEnd(head, 4);
+
+var addTwoNumbers = function (l1, l2) {
+  function ListNode(val, next) {
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
+  }
+  let dummy = new ListNode(0);
+  let head = dummy;
+
+  let sum = 0;
+  let carry = 0;
+
+  while (l1 != null || l2 != null || sum != 0) {
+    if (l1 != null) {
+      sum += l1.val;
+      l1 = l1.next;
+    }
+
+    if (l2 != null) {
+      sum += l2.val;
+      l2 = l2.next;
+    }
+
+    if (sum >= 10) {
+      carry = 1;
+      sum = sum - 10;
+    }
+    head.next = new ListNode(sum);
+    head = head.next;
+    sum = carry;
+    carry = 0;
+  }
+
+  return dummy.next;
+};
+
+const l1 = new ListNode(2);
+l1.next = new ListNode(4);
+l1.next.next = new ListNode(3);
+
+const l2 = new ListNode(5);
+l2.next = new ListNode(6);
+l2.next.next = new ListNode(4);
+
+console.log(addTwoNumbers(l1, l2));
