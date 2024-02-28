@@ -1016,4 +1016,60 @@ var buildTree = function (preorder, inorder) {
   return recurse(0, preorder.length - 1, 0, inorder.length - 1);
 };
 
-console.log(buildTree([3, 9, 20, 15, 7], [9, 3, 5, 20, 7]));
+// buildTree([3, 9, 20, 15, 7], [9, 3, 5, 20, 7]);
+
+function sortList(head) {
+  if (head === null || head.next === null) return head;
+
+  // Step 1: Split the list into two halves
+  const mid = getMid(head);
+  const left = sortList(head);
+  const right = sortList(mid);
+
+  // Step 2: Merge the sorted lists
+  return merge(left, right);
+}
+
+function getMid(head) {
+  let prev = null;
+  let slow = head;
+  let fast = head;
+
+  while (fast !== null && fast.next !== null) {
+    prev = slow;
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  if (prev !== null) prev.next = null;
+
+  return slow;
+}
+
+function merge(l1, l2) {
+  const dummy = new ListNode();
+  let current = dummy;
+
+  while (l1 !== null && l2 !== null) {
+    if (l1.val < l2.val) {
+      current.next = l1;
+      l1 = l1.next;
+    } else {
+      current.next = l2;
+      l2 = l2.next;
+    }
+    current = current.next;
+  }
+
+  if (l1 !== null) current.next = l1;
+  else current.next = l2;
+
+  return dummy.next;
+}
+
+const list = new ListNode(4);
+list.next = new ListNode(2);
+list.next.next = new ListNode(1);
+list.next.next.next = new ListNode(3);
+
+console.log(sortList(list));
