@@ -1109,4 +1109,45 @@ cache.get(1);
 cache.get(2);
 cache.put(4, 4);
 
-console.log(cache);
+var majorityElement = function (nums) {
+  // let map = new Map();
+  // let maxKey;
+  // let maxValue = -Infinity;
+
+  // for (let i = 0; i < nums.length; i++) {
+  //   if (!map.has(nums[i])) {
+  //     map.set(nums[i], 1);
+  //   } else {
+  //     map.set(nums[i], map.get(nums[i]) + 1);
+  //   }
+  // }
+
+  // for (let [key, value] of map.entries()) {
+  //   if (value > maxValue) {
+  //     maxValue = value;
+  //     maxKey = key;
+  //   }
+  // }
+
+  // return maxKey;
+
+  //boyer-moore majority vote algorithm
+
+  let count = 1;
+  let maxElement = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    if (count === 0) {
+      maxElement = nums[i];
+      count = 1;
+    } else if (nums[i] == maxElement) {
+      count++;
+    } else {
+      count--;
+    }
+  }
+
+  return maxElement;
+};
+
+console.log(majorityElement([6, 5, 5]));
