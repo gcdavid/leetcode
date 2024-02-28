@@ -1067,13 +1067,6 @@ function merge(l1, l2) {
   return dummy.next;
 }
 
-const list = new ListNode(4);
-list.next = new ListNode(2);
-list.next.next = new ListNode(1);
-list.next.next.next = new ListNode(3);
-
-sortList(list);
-
 var LRUCache = function (capacity) {
   this.cache = new Map();
   this.capacity = capacity;
@@ -1150,4 +1143,47 @@ var majorityElement = function (nums) {
   return maxElement;
 };
 
-console.log(majorityElement([6, 5, 5]));
+majorityElement([6, 5, 5]);
+
+var palindromeLinkedList = function (head) {
+  let fast = head;
+  let slow = head;
+
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  fast = head;
+  slow = reverse(slow);
+
+  while (slow) {
+    if (fast.val !== slow.val) {
+      return false;
+    }
+
+    slow = slow.next;
+    fast = fast.next;
+  }
+
+  return true;
+
+  function reverse(root) {
+    let prev = null;
+
+    while (root) {
+      let ref = root.next;
+      root.next = prev;
+      prev = root;
+      root = ref;
+    }
+
+    return prev;
+  }
+};
+
+const list = new ListNode(1);
+list.next = new ListNode(2);
+list.next.next = new ListNode(2);
+list.next.next.next = new ListNode(1);
+
+console.log(palindromeLinkedList(list));
