@@ -733,8 +733,6 @@ node1.left.right = null;
 node1.right.left = new TreeNode(15);
 node1.right.right = new TreeNode(7);
 
-levelOrder(node1);
-
 var findAnagrams = function (s, p) {
   let map = {};
 
@@ -996,4 +994,26 @@ swapPairsl1.next = new ListNode(2);
 swapPairsl1.next.next = new ListNode(3);
 swapPairsl1.next.next.next = new ListNode(4);
 
-console.log(swapPairs(swapPairsl1));
+swapPairs(swapPairsl1);
+
+var buildTree = function (preorder, inorder) {
+  function recurse(pStart, pEnd, inStart, inEnd) {
+    // Base case
+    if (pStart > pEnd || inStart > inEnd) return null;
+
+    let rootVal = preorder[pStart];
+    let inIndex = inorder.indexOf(rootVal);
+    let nLeft = inIndex - inStart;
+
+    let root = new TreeNode(rootVal);
+
+    root.left = recurse(pStart + 1, pStart + nLeft, inStart, inIndex - 1);
+    root.right = recurse(pStart + 1 + nLeft, pEnd, inIndex + 1, inEnd);
+
+    return root;
+  }
+
+  return recurse(0, preorder.length - 1, 0, inorder.length - 1);
+};
+
+console.log(buildTree([3, 9, 20, 15, 7], [9, 3, 5, 20, 7]));
