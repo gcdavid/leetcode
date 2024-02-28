@@ -1072,4 +1072,41 @@ list.next = new ListNode(2);
 list.next.next = new ListNode(1);
 list.next.next.next = new ListNode(3);
 
-console.log(sortList(list));
+sortList(list);
+
+var LRUCache = function (capacity) {
+  this.cache = new Map();
+  this.capacity = capacity;
+};
+
+LRUCache.prototype.put = function (key, value) {
+  if (this.cache.has(key)) {
+    this.cache.delete(key);
+  }
+
+  this.cache.set(key, value);
+  if (this.cache.size > this.capacity) {
+    this.cache.delete(this.cache.keys().next().value);
+  }
+};
+
+LRUCache.prototype.get = function (key) {
+  if (!this.cache.has(key)) {
+    return -1;
+  }
+
+  const v = this.cache.get(key);
+  this.cache.delete(key);
+  this.cache.set(key, v);
+
+  return this.cache.get(key);
+};
+
+const cache = new LRUCache(2);
+cache.put(1, 1);
+cache.put(2, 2);
+cache.get(1);
+cache.get(2);
+cache.put(4, 4);
+
+console.log(cache);
