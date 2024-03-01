@@ -1189,31 +1189,29 @@ list.next.next.next = new ListNode(1);
 palindromeLinkedList(list);
 
 var threeSum = function (nums) {
-  if (nums.length < 3) return [];
+  if (nums.length === 0) return [];
   const result = [];
-
   nums.sort((a, b) => a - b);
 
   for (let i = 0; i < nums.length - 2; i++) {
+    //stop duplicates from occuring
     if (i > 0 && nums[i] === nums[i - 1]) continue;
-
     let left = i + 1;
     let right = nums.length - 1;
 
     while (left < right) {
-      const sum = nums[i] + nums[right] + nums[left];
-
+      let sum = nums[left] + nums[right] + nums[i];
       if (sum === 0) {
-        result.push([nums[i], nums[left], nums[right]]);
-
-        while (nums[left] === nums[left + 1]) left++;
-        while (nums[right] === nums[right + 1]) right--;
+        result.push([nums[left], nums[right], nums[i]]);
+        //stop duplicates
+        while (nums[left] == nums[left + 1]) left++;
+        while (nums[right] == nums[right + 1]) right--;
         left++;
         right--;
-      } else if (sum > 0) {
-        right--;
+      } else if (sum < 0) {
+        left++;
       } else {
-        left++;
+        right--;
       }
     }
   }
@@ -1250,7 +1248,7 @@ var removeDuplicates = function (nums) {
   let index = 1;
 
   for (let i = 0; i < nums.length - 1; i++) {
-    if (nums[i] !== nums[i + 1]) {
+    if (nums[i] != nums[i + 1]) {
       nums[index] = nums[i + 1];
       index++;
     }
@@ -1259,4 +1257,33 @@ var removeDuplicates = function (nums) {
   return index;
 };
 
-console.log(removeDuplicates([1, 1, 2, 2, 3]));
+removeDuplicates([1, 1, 2, 2, 3]);
+
+var threeSumClosest = function (nums, target) {
+  //sort the arrays to use two pointer technique
+  nums.sort((a, b) => a - b);
+
+  let closestSum = nums[0] + nums[1] + nums[2];
+  for (let i = 0; i < nums.length - 2; i++) {
+    let left = i + 1;
+    let right = nums.length - 1;
+
+    while (left < right) {
+      let sum = nums[i] + nums[left] + nums[right];
+
+      if (Math.abs(sum - target) < Math.abs(closestSum - target)) {
+        closestSum = sum;
+      }
+
+      if (sum < target) {
+        left++;
+      } else {
+        right--;
+      }
+    }
+  }
+
+  return closestSum;
+};
+
+console.log(threeSumClosest([-1, 2, 1, -4], 1));
