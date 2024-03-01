@@ -1188,7 +1188,7 @@ list.next.next.next = new ListNode(1);
 
 palindromeLinkedList(list);
 
-function threeSum(nums) {
+var threeSum = function (nums) {
   if (nums.length < 3) return [];
   const result = [];
 
@@ -1219,6 +1219,21 @@ function threeSum(nums) {
   }
 
   return result;
-}
+};
 
-console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+threeSum([-1, 0, 1, 2, -1, -4]);
+
+ let [left, right, max] = [0, height.length - 1, 0];
+
+    while (left < right) {
+        max = Math.max(max, Math.min(height[left], height[right]) * (right - left));
+        if (height[right] > height[left]) {
+            left += 1;
+        } else {
+            right -= 1;
+        }
+    }
+
+    return max;
+
+console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]));
