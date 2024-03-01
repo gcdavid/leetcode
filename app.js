@@ -1223,17 +1223,40 @@ var threeSum = function (nums) {
 
 threeSum([-1, 0, 1, 2, -1, -4]);
 
- let [left, right, max] = [0, height.length - 1, 0];
+var maxArea = function (height) {
+  let left = 0;
+  let right = height.length - 1;
+  let maxArea = 0;
 
-    while (left < right) {
-        max = Math.max(max, Math.min(height[left], height[right]) * (right - left));
-        if (height[right] > height[left]) {
-            left += 1;
-        } else {
-            right -= 1;
-        }
+  while (left < right) {
+    let distance = right - left;
+    let shorter = Math.min(height[left], height[right]);
+    let area = distance * shorter;
+    maxArea = Math.max(maxArea, area);
+
+    if (height[left] < height[right]) {
+      left++;
+    } else {
+      right--;
     }
+  }
 
-    return max;
+  return maxArea;
+};
 
-console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]));
+maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]);
+
+var removeDuplicates = function (nums) {
+  let index = 1;
+
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] !== nums[i + 1]) {
+      nums[index] = nums[i + 1];
+      index++;
+    }
+  }
+
+  return index;
+};
+
+console.log(removeDuplicates([1, 1, 2, 2, 3]));
