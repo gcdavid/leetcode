@@ -1262,8 +1262,9 @@ removeDuplicates([1, 1, 2, 2, 3]);
 var threeSumClosest = function (nums, target) {
   //sort the arrays to use two pointer technique
   nums.sort((a, b) => a - b);
+  let diff = Number.MAX_SAFE_INTEGER;
+  let result = 0;
 
-  let closestSum = nums[0] + nums[1] + nums[2];
   for (let i = 0; i < nums.length - 2; i++) {
     let left = i + 1;
     let right = nums.length - 1;
@@ -1271,19 +1272,61 @@ var threeSumClosest = function (nums, target) {
     while (left < right) {
       let sum = nums[i] + nums[left] + nums[right];
 
-      if (Math.abs(sum - target) < Math.abs(closestSum - target)) {
-        closestSum = sum;
-      }
-
-      if (sum < target) {
+      if (sum === target) {
+        return target;
+      } else if (sum < target) {
         left++;
       } else {
         right--;
       }
+
+      const difference = Math.abs(sum - target);
+
+      if (difference < diff) {
+        diff = difference;
+        result = sum;
+      }
     }
   }
 
-  return closestSum;
+  return result;
 };
 
-console.log(threeSumClosest([-1, 2, 1, -4], 1));
+threeSumClosest([-1, 2, 1, -4], 1);
+
+var fourSum = function (nums, target) {
+  nums.sort((a, b) => a - b);
+
+  let result = [];
+  if (nums.length < 4) return [];
+
+  for (let i = 0; i < nums.length - 3; i++) {
+    for (let j = i + 1; j < nums.length - 2; j++) {
+      let k = j + 1;
+      let l = nums.length - 1;
+
+      while (k < l) {
+        let sum = nums[i] + nums[j] + nums[k] + nums[l];
+
+        if (sum === target) {
+          result.push([nums[i], nums[j], nums[k], nums[l]]);
+          while (nums[k] === nums[k + 1]) k++;
+          while (nums[l] === nums[l - 1]) l--;
+          k++;
+          l--;
+        } else if (sum < target) {
+          k++;
+        } else {
+          l--;
+        }
+      }
+
+      while (nums[j] === nums[j + 1]) j++;
+    }
+    while (nums[i] === nums[i + 1]) i++;
+  }
+
+  return result;
+};
+
+console.log(fourSum([1, 0, -1, 0, -2, 2], 0));
