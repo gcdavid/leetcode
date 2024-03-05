@@ -1384,4 +1384,35 @@ var isPalindrome = function (x) {
   return true;
 };
 
-console.log(isPalindrome(121));
+isPalindrome(121);
+
+var isValidPalindrome = function (s) {
+  let sStr = s.toLowerCase();
+  let filteredS = "";
+  for (let i = 0; i < sStr.length; i++) {
+    if (
+      (sStr.charCodeAt(i) >= 65 && sStr.charCodeAt(i) <= 90) || // uppercase alphabets
+      (sStr.charCodeAt(i) >= 97 && sStr.charCodeAt(i) <= 122) || // lowercase alphabets
+      (sStr.charCodeAt(i) >= 48 && sStr.charCodeAt(i) <= 57) // digits
+    ) {
+      filteredS += sStr[i];
+    }
+  }
+
+  let left = 0;
+  let right = filteredS.length - 1;
+
+  console.log(filteredS);
+  while (left < right) {
+    if (filteredS[left] !== filteredS[right]) {
+      return false;
+    }
+
+    left++;
+    right--;
+  }
+
+  return true;
+};
+
+console.log(isValidPalindrome("a."));
