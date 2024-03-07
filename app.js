@@ -1402,7 +1402,6 @@ var isValidPalindrome = function (s) {
   let left = 0;
   let right = filteredS.length - 1;
 
-  console.log(filteredS);
   while (left < right) {
     if (filteredS[left] !== filteredS[right]) {
       return false;
@@ -1431,6 +1430,7 @@ var rotateRight = function (head, k) {
   tail.next = head;
 
   let count = len - (k % len);
+
   while (count > 0) {
     head = head.next;
     tail = tail.next;
@@ -1448,4 +1448,46 @@ rotateListNode.next.next = new ListNode(3);
 rotateListNode.next.next.next = new ListNode(4);
 rotateListNode.next.next.next.next = new ListNode(5);
 
-console.log(rotateRight(rotateListNode, 2));
+rotateRight(rotateListNode, 2);
+
+function removeDuplicatesII(nums) {
+  // let l = 0;
+  // let r = 0;
+  // while (r < nums.length) {
+  //   let count = 1;
+  //   while (r + 1 < nums.length && nums[r] === nums[r + 1]) {
+  //     r++;
+  //     count++;
+  //   }
+  //   for (let i = 0; i < Math.min(2, count); i++) {
+  //     nums[l] = nums[r];
+  //     l++;
+  //   }
+  //   r++;
+  // }
+
+  // return l;
+
+  let left = 0;
+  let right = 0;
+  let count = 0;
+
+  while (right < nums.length) {
+    if (nums[right] !== nums[right - 1]) {
+      count = 1;
+      nums[left] = nums[right];
+      left++;
+    } else {
+      count++;
+      if (count <= 2) {
+        nums[left] = nums[right];
+        left++;
+      }
+    }
+    right++;
+  }
+
+  return left; // Return the length of the modified array
+}
+
+console.log(removeDuplicatesII([1, 1, 2, 2, 2, 3]));
