@@ -1415,4 +1415,37 @@ var isValidPalindrome = function (s) {
   return true;
 };
 
-console.log(isValidPalindrome("a."));
+isValidPalindrome("a.");
+
+var rotateRight = function (head, k) {
+  if (head === null) return head;
+
+  let len = 1;
+  let tail = head;
+
+  while (tail.next !== null) {
+    tail = tail.next;
+    len++;
+  }
+
+  tail.next = head;
+
+  let count = len - (k % len);
+  while (count > 0) {
+    head = head.next;
+    tail = tail.next;
+    count--;
+  }
+
+  tail.next = null;
+
+  return head;
+};
+
+const rotateListNode = new ListNode(1);
+rotateListNode.next = new ListNode(2);
+rotateListNode.next.next = new ListNode(3);
+rotateListNode.next.next.next = new ListNode(4);
+rotateListNode.next.next.next.next = new ListNode(5);
+
+console.log(rotateRight(rotateListNode, 2));
