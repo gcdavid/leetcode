@@ -1490,4 +1490,40 @@ function removeDuplicatesII(nums) {
   return left; // Return the length of the modified array
 }
 
-console.log(removeDuplicatesII([1, 1, 2, 2, 2, 3]));
+removeDuplicatesII([1, 1, 2, 2, 2, 3]);
+
+var deleteDuplicates = function (head) {
+  let clone = head;
+  let freqMap = {};
+
+  while (clone != null) {
+    if (!freqMap[clone.val]) {
+      freqMap[clone.val] = 1;
+    } else {
+      freqMap[clone.val]++;
+    }
+
+    clone = clone.next;
+  }
+
+  let prev = new ListNode(0, head);
+  clone = prev;
+
+  while (clone != null) {
+    //check over freqmap count and delete the node if it's greater than 1
+    while (clone.next && freqMap[clone.next.val] > 1) {
+      clone.next = clone.next.next;
+    }
+    clone = clone.next;
+  }
+
+  return prev.next;
+};
+
+const deleteDuplicatesHead = new ListNode(1);
+deleteDuplicatesHead.next = new ListNode(1);
+deleteDuplicatesHead.next.next = new ListNode(1);
+deleteDuplicatesHead.next.next.next = new ListNode(2);
+deleteDuplicatesHead.next.next.next.next = new ListNode(3);
+
+console.log(deleteDuplicates(deleteDuplicatesHead));
