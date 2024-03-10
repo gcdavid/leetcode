@@ -1526,4 +1526,34 @@ deleteDuplicatesHead.next.next = new ListNode(1);
 deleteDuplicatesHead.next.next.next = new ListNode(2);
 deleteDuplicatesHead.next.next.next.next = new ListNode(3);
 
+deleteDuplicates(deleteDuplicatesHead);
+
+var hasCycle = function (head) {
+  if (!head) return false;
+
+  let fast = head;
+  let slow = head;
+
+  while (fast != null) {
+    if (!fast.next) {
+      return false;
+    } else {
+      fast = fast.next.next;
+      slow = slow.next;
+    }
+
+    if (fast === slow) return true;
+  }
+
+  return false;
+};
+
+const hasCycleHead = new ListNode(3);
+hasCycleHead.next = new ListNode(2);
+hasCycleHead.next.next = new ListNode(0);
+hasCycleHead.next.next.next = new ListNode(4);
+hasCycleHead.next.next.next.next = new ListNode(2);
+
+hasCycle(hasCycleHead);
+
 console.log(deleteDuplicates(deleteDuplicatesHead));
