@@ -1606,4 +1606,23 @@ var longestPalindrome = function (s) {
 
 longestPalindrome("babad");
 
-console.log(lengthOfLargestSubstring("pwwkew"));
+var reverseList = function (head) {
+  let prev = null;
+
+  while (head) {
+    let next = head.next;
+    head.next = prev;
+    prev = head;
+    head = next;
+  }
+
+  return prev;
+};
+
+const reverseListNode = new ListNode(1);
+reverseListNode.next = new ListNode(2);
+reverseListNode.next.next = new ListNode(3);
+reverseListNode.next.next.next = new ListNode(4);
+reverseListNode.next.next.next.next = new ListNode(5);
+
+console.log(reverseList(reverseListNode));
