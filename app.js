@@ -1625,4 +1625,29 @@ reverseListNode.next.next = new ListNode(3);
 reverseListNode.next.next.next = new ListNode(4);
 reverseListNode.next.next.next.next = new ListNode(5);
 
-console.log(reverseList(reverseListNode));
+reverseList(reverseListNode);
+
+var preorderTraversal = function (root) {
+  // Tree traversal in which root is visited first, then left and right node
+
+  let arr = [];
+
+  checkTree(root, arr);
+
+  function checkTree(root, arr) {
+    if (root === null) return root;
+
+    arr.push(root.val);
+    checkTree(root.left, arr);
+    checkTree(root.right, arr);
+  }
+
+  return arr;
+};
+
+const inorderNode = new TreeNode(1);
+inorderNode.left = null;
+inorderNode.right = new TreeNode(2);
+inorderNode.right.left = new TreeNode(3);
+
+console.log(preorderTraversal(inorderNode));
