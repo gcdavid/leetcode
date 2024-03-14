@@ -1650,4 +1650,22 @@ inorderNode.left = null;
 inorderNode.right = new TreeNode(2);
 inorderNode.right.left = new TreeNode(3);
 
-console.log(preorderTraversal(inorderNode));
+preorderTraversal(inorderNode);
+
+//solving the problem in recursive ways. Learning recursion
+var swapPairs = function (head) {
+  //base case
+  if (head === null || head.next === null) {
+    return head;
+  }
+
+  //swap the first and second
+  let second = head.next;
+  head.next = second.next;
+  second.next = head;
+
+  //recursion for the remaining
+  head.next = swapPairs(head.next);
+
+  return second;
+};
