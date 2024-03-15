@@ -1652,6 +1652,7 @@ inorderNode.right.left = new TreeNode(3);
 
 preorderTraversal(inorderNode);
 
+let counter = 0;
 //solving the problem in recursive ways. Learning recursion
 var swapPairs = function (head) {
   //base case
@@ -1665,7 +1666,46 @@ var swapPairs = function (head) {
   second.next = head;
 
   //recursion for the remaining
+  counter++;
+
   head.next = swapPairs(head.next);
 
   return second;
 };
+
+const swapPairsNode = new ListNode(1);
+swapPairsNode.next = new ListNode(2);
+swapPairsNode.next.next = new ListNode(3);
+swapPairsNode.next.next.next = new ListNode(4);
+
+swapPairs(swapPairsNode);
+
+var myPow = function (x, n) {
+  function calcPower(x, n) {
+    if (x === 0) {
+      return 0;
+    }
+    if (n === 0) {
+      return 1;
+    }
+
+    let res = calcPower(x, Math.floor(n / 2));
+    res = res * res;
+
+    if (n % 2 == 1) {
+      return res * x;
+    }
+
+    return res;
+  }
+
+  let ans = calcPower(x, Math.abs(n));
+
+  if (n >= 0) {
+    return ans;
+  } else {
+    return 1 / ans;
+  }
+};
+
+myPow(2, 10);
