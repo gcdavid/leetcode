@@ -1709,3 +1709,47 @@ var myPow = function (x, n) {
 };
 
 myPow(2, 10);
+
+var reorderList = function (head) {
+  //find the mid
+  let slow = head;
+  let fast = head;
+
+  while (fast.next && fast.next.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  let prev = null;
+
+  //destroy the linked list from the mid
+  let curr = slow.next;
+  slow.next = prev;
+
+  //reverse the linked list
+  while (curr) {
+    let temp = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = temp;
+  }
+
+  //merge the list
+  let h1 = head;
+  let h2 = prev;
+
+  while (h2) {
+    let temp = h1.next;
+
+    h1.next = h2;
+    h1 = h2;
+    h2 = temp;
+  }
+};
+
+const reorderListNode = new ListNode(1);
+reorderListNode.next = new ListNode(2);
+reorderListNode.next.next = new ListNode(3);
+reorderListNode.next.next.next = new ListNode(4);
+
+console.log(reorderList(reorderListNode));
