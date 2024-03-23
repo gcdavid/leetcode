@@ -1740,11 +1740,13 @@ var reorderList = function (head) {
 
   while (h2) {
     let temp = h1.next;
-
     h1.next = h2;
     h1 = h2;
+
     h2 = temp;
   }
+
+  return head;
 };
 
 const reorderListNode = new ListNode(1);
@@ -1752,4 +1754,41 @@ reorderListNode.next = new ListNode(2);
 reorderListNode.next.next = new ListNode(3);
 reorderListNode.next.next.next = new ListNode(4);
 
-console.log(reorderList(reorderListNode));
+reorderList(reorderListNode);
+
+var diffWaysToCompute = function (input) {
+  if (!isNaN(input)) {
+    return [parseInt(input)];
+  }
+
+  let res = [];
+  for (let i = 0; i < input.length; i++) {
+    console.log(input[i], i);
+    if (["-", "+", "*"].includes(input[i])) {
+      console.log(input[i], "input[i]", i);
+      let res1 = diffWaysToCompute(input.slice(0, i));
+      console.log(res1, "res1");
+      let res2 = diffWaysToCompute(input.slice(i + 1));
+      console.log(res2, "res2");
+      for (let j of res1) {
+        for (let k of res2) {
+          res.push(helper(j, k, input[i]));
+        }
+      }
+    }
+  }
+  ``;
+  return res;
+};
+
+var helper = function (m, n, op) {
+  if (op === "+") {
+    return m + n;
+  } else if (op === "-") {
+    return m - n;
+  } else {
+    return m * n;
+  }
+};
+
+console.log(diffWaysToCompute("2-1-1"));
