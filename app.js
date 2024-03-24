@@ -1763,13 +1763,10 @@ var diffWaysToCompute = function (input) {
 
   let res = [];
   for (let i = 0; i < input.length; i++) {
-    console.log(input[i], i);
     if (["-", "+", "*"].includes(input[i])) {
-      console.log(input[i], "input[i]", i);
       let res1 = diffWaysToCompute(input.slice(0, i));
-      console.log(res1, "res1");
       let res2 = diffWaysToCompute(input.slice(i + 1));
-      console.log(res2, "res2");
+
       for (let j of res1) {
         for (let k of res2) {
           res.push(helper(j, k, input[i]));
@@ -1791,4 +1788,53 @@ var helper = function (m, n, op) {
   }
 };
 
-console.log(diffWaysToCompute("2-1-1"));
+diffWaysToCompute("2-1-1");
+
+var combinationSum = function (candidates, target) {
+  //assign a result variable to store the possible combinations
+  let result = [];
+
+  function dfs(index, currentVal, arr) {
+    //base case
+    if (currentVal < 0) return;
+    if (currentVal === 0) {
+      result.push([...arr]);
+    }
+
+    //iterate over arr and subtract target with the arr[i]
+    for (let i = index; i < candidates.length; i++) {
+      arr.push(candidates[i]);
+      dfs(i, currentVal - candidates[i], arr);
+      arr.pop();
+    }
+  }
+
+  dfs(0, target, []);
+
+  return result;
+};
+
+var combinations = function (n, k) {
+  let result = [];
+
+  function dfs(index, current) {
+    //base case
+    if (current.length === k) {
+      result.push([...current]);
+    }
+
+    for (let i = index; i <= n; i++) {
+      current.push(i);
+      //recurse
+      dfs(i + 1, current);
+      //backtrack
+      current.pop();
+    }
+  }
+
+  dfs(1, []);
+
+  return result;
+};
+
+console.log(combinations(4, 2));
