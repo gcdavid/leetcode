@@ -434,7 +434,7 @@ var subsets = function (nums) {
       result.push([...current]);
 
       dfs(i + 1, current);
-      //backtract
+      //backtrack
       current.pop();
     }
   };
@@ -1790,30 +1790,6 @@ var helper = function (m, n, op) {
 
 diffWaysToCompute("2-1-1");
 
-var combinationSum = function (candidates, target) {
-  //assign a result variable to store the possible combinations
-  let result = [];
-
-  function dfs(index, currentVal, arr) {
-    //base case
-    if (currentVal < 0) return;
-    if (currentVal === 0) {
-      result.push([...arr]);
-    }
-
-    //iterate over arr and subtract target with the arr[i]
-    for (let i = index; i < candidates.length; i++) {
-      arr.push(candidates[i]);
-      dfs(i, currentVal - candidates[i], arr);
-      arr.pop();
-    }
-  }
-
-  dfs(0, target, []);
-
-  return result;
-};
-
 var combinations = function (n, k) {
   let result = [];
 
@@ -1837,4 +1813,47 @@ var combinations = function (n, k) {
   return result;
 };
 
-console.log(combinations(4, 2));
+combinations(4, 2);
+
+var permuteUnique = function (nums) {
+  let result = [];
+  let permutation = [];
+  let count = {};
+
+  // Count the frequency of each number
+  for (let num of nums) {
+    count[num] = (count[num] || 0) + 1;
+  }
+
+  // Recursive function to generate permutations
+  var dfs = function () {
+    // Base case: If the current permutation has the same length as the input array nums
+    if (permutation.length === nums.length) {
+      result.push([...permutation]);
+      return;
+    }
+
+    // Iterate through each unique number
+    for (let num of Object.keys(count)) {
+      num = parseInt(num); // Convert key to number
+
+      // Check if the current number's count is greater than 0
+      if (count[num] > 0) {
+        permutation.push(num); // Include the current number in the permutation
+        count[num] -= 1; // Decrement the count
+
+        dfs(); // Recursively generate permutations
+
+        // Backtrack: Restore the count and remove the last added element from permutation
+        count[num] += 1;
+        permutation.pop();
+      }
+    }
+  };
+
+  dfs(); // Start the recursive process
+
+  return result;
+};
+
+console.log(permuteUnique([1, 1, 2]));
