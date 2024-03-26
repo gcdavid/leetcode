@@ -1886,4 +1886,28 @@ var combinationSum2 = function (candidates, target) {
   return result;
 };
 
-console.log(combinationSum2([10, 1, 2, 7, 6, 1, 5], 8));
+combinationSum2([10, 1, 2, 7, 6, 1, 5], 8);
+
+var combinationSum3 = function (k, n) {
+  let result = [];
+
+  var dfs = function (target, start, comb) {
+    //base case
+    if (target === 0 && comb.length === k) {
+      result.push([...comb]);
+      return;
+    }
+
+    for (let i = start; i <= 9; i++) {
+      if (target - i >= 0) {
+        dfs(target - i, i + 1, [...comb, i]);
+      }
+    }
+  };
+
+  dfs(n, 1, []);
+
+  return result;
+};
+
+console.log(combinationSum3(3, 9));
