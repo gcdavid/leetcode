@@ -1899,9 +1899,7 @@ var combinationSum3 = function (k, n) {
     }
 
     for (let i = start; i <= 9; i++) {
-      if (target - i >= 0) {
-        dfs(target - i, i + 1, [...comb, i]);
-      }
+      dfs(target - i, i + 1, [...comb, i]);
     }
   };
 
@@ -1910,4 +1908,27 @@ var combinationSum3 = function (k, n) {
   return result;
 };
 
-console.log(combinationSum3(3, 9));
+combinationSum3(3, 9);
+
+var subsetsWithDup = function (nums) {
+  let result = [[]];
+
+  nums.sort((a, b) => a - b);
+
+  var dfs = function (nums, res, currArr, start) {
+    for (let i = start; i < nums.length; i++) {
+      if (i === start || nums[i] !== nums[i - 1]) {
+        currArr.push(nums[i]);
+        res.push([...currArr]);
+        dfs(nums, res, currArr, i + 1);
+        currArr.pop();
+      }
+    }
+  };
+
+  dfs(nums, result, [], 0);
+
+  return result;
+};
+
+console.log(subsetsWithDup([1, 2, 2]));
