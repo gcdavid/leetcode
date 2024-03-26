@@ -1856,4 +1856,34 @@ var permuteUnique = function (nums) {
   return result;
 };
 
-console.log(permuteUnique([1, 1, 2]));
+permuteUnique([1, 1, 2]);
+
+var combinationSum2 = function (candidates, target) {
+  let result = [];
+  candidates.sort((a, b) => a - b);
+
+  var dfs = function (target, start, comb) {
+    if (target < 0) {
+      return;
+    }
+    if (target === 0) {
+      result.push([...comb]);
+    }
+
+    for (let i = start; i < candidates.length; i++) {
+      if (i > start && candidates[i] === candidates[i - 1]) {
+        continue;
+      }
+      if (candidates[i] > target) {
+        break;
+      }
+
+      dfs(target - candidates[i], i + 1, [...comb, candidates[i]]);
+    }
+  };
+
+  dfs(target, 0, []);
+  return result;
+};
+
+console.log(combinationSum2([10, 1, 2, 7, 6, 1, 5], 8));
