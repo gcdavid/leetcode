@@ -1931,4 +1931,21 @@ var subsetsWithDup = function (nums) {
   return result;
 };
 
-console.log(subsetsWithDup([1, 2, 2]));
+subsetsWithDup([1, 2, 2]);
+
+var maxProfit = function (prices) {
+  let maxProfit = 0;
+  let minPrice = prices[0];
+
+  for (let i = 0; i < prices.length; i++) {
+    minPrice = Math.min(minPrice, prices[i]);
+
+    maxProfit += prices[i] - minPrice;
+
+    minPrice = prices[i];
+  }
+
+  return maxProfit;
+};
+
+console.log(maxProfit([7, 1, 5, 3, 6, 4]));
