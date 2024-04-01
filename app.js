@@ -1948,4 +1948,29 @@ var maxProfit = function (prices) {
   return maxProfit;
 };
 
-console.log(maxProfit([7, 1, 5, 3, 6, 4]));
+maxProfit([7, 1, 5, 3, 6, 4]);
+
+var romanToInt = function (s) {
+  const letter = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  };
+  let result = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    if (i < s.length - 1 && letter[s[i]] < letter[s[i + 1]]) {
+      result -= letter[s[i]];
+    } else {
+      result += letter[s[i]];
+    }
+  }
+
+  return result;
+};
+
+console.log(romanToInt("IX"));
