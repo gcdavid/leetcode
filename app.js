@@ -2007,4 +2007,23 @@ var intToRoman = function (num) {
   return result;
 };
 
-console.log(intToRoman(4));
+intToRoman(499);
+
+var convert = function (s, numRows) {
+  let count = 0;
+  let direction = false;
+  let result = new Array(numRows).fill("");
+
+  for (let i = 0; i < s.length; i++) {
+    let curr = s[i];
+
+    result[count] += curr;
+
+    if (count == 0 || count >= numRows - 1) direction = !direction;
+    direction ? count++ : count--;
+  }
+
+  return result.join("");
+};
+
+console.log(convert("PaypalIsHiring", 3));
