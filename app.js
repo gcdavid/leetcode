@@ -2026,4 +2026,21 @@ var convert = function (s, numRows) {
   return result.join("");
 };
 
-console.log(convert("PaypalIsHiring", 3));
+convert("PaypalIsHiring", 3);
+
+var reverseInteger = function (x) {
+  let limit = Math.pow(2, 31) - 1;
+  let rev = x.toString().split("").reverse().join("");
+  let result = parseInt(rev);
+  if (result > limit || result < -limit) {
+    return 0;
+  }
+
+  if (x > 0) {
+    return result;
+  } else {
+    return -result;
+  }
+};
+
+console.log(reverseInteger(-123));
