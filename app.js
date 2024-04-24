@@ -2043,4 +2043,22 @@ var reverseInteger = function (x) {
   }
 };
 
-console.log(reverseInteger(-123));
+reverseInteger(-123);
+
+var tribonacci = function (n) {
+  let t0 = 0;
+  let t1 = 1;
+  let t2 = 1;
+  let sum = 0;
+
+  for (let i = 3; i <= n; i++) {
+    sum = t0 + t1 + t2;
+    t0 = t1;
+    t1 = t2;
+    t2 = sum;
+  }
+
+  return sum;
+};
+
+console.log(tribonacci(25));
