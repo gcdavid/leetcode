@@ -2061,4 +2061,30 @@ var tribonacci = function (n) {
   return sum;
 };
 
-console.log(tribonacci(25));
+tribonacci(25);
+
+var minAvgDiff = function (nums) {
+  let leftSum = 0;
+  let rightSum = nums.reduce((a, b) => a + b);
+  let minIndex = 0;
+  let minDiff = rightSum;
+  let n = nums.length;
+
+  for (let i = 0; i < n; i++) {
+    leftSum += nums[i];
+    rightSum -= nums[i];
+
+    const leftAverage = Math.floor(leftSum / (i + 1));
+    const rightAverage = n - i - 1 === 0 ? 0 : Math.floor(rightSum / n - 1 - i);
+    const currentDiff = Math.abs(leftAverage - rightAverage);
+
+    if (currentDiff < minDiff) {
+      minDiff = currentDiff;
+      minIndex = i;
+    }
+  }
+
+  return minIndex;
+};
+
+console.log(minAvgDiff([2, 5, 3, 9, 5, 3]));
