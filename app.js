@@ -2107,4 +2107,24 @@ var minimumRounds = function (tasks) {
   return ans;
 };
 
-console.log(minimumRounds([2, 2, 3, 3, 2, 4, 4, 4, 4, 4]));
+minimumRounds([2, 2, 3, 3, 2, 4, 4, 4, 4, 4]);
+
+var pivotArray = function (nums, pivot) {
+  let mid = [];
+  let high = [];
+  let low = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] > pivot) {
+      high.push(nums[i]);
+    } else if (nums[i] == pivot) {
+      mid.push(nums[i]);
+    } else {
+      low.push(nums[i]);
+    }
+  }
+
+  return low.concat(mid.concat(high));
+};
+
+console.log(pivotArray([9, 12, 5, 10, 14, 3, 10], 10));
