@@ -2087,4 +2087,24 @@ var minAvgDiff = function (nums) {
   return minIndex;
 };
 
-console.log(minAvgDiff([2, 5, 3, 9, 5, 3]));
+minAvgDiff([2, 5, 3, 9, 5, 3]);
+
+var minimumRounds = function (tasks) {
+  let map = new Map();
+  let ans = 0;
+  for (let task of tasks) {
+    if (!map.has(task)) {
+      map.set(task, 0);
+    }
+    map.set(task, map.get(task) + 1);
+  }
+
+  for (const [task, count] of map.entries()) {
+    if (count == 1) return -1;
+    ans += Math.floor((count + 2) / 3); // Perform integer division
+  }
+
+  return ans;
+};
+
+console.log(minimumRounds([2, 2, 3, 3, 2, 4, 4, 4, 4, 4]));
