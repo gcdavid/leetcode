@@ -2127,4 +2127,23 @@ var pivotArray = function (nums, pivot) {
   return low.concat(mid.concat(high));
 };
 
-console.log(pivotArray([9, 12, 5, 10, 14, 3, 10], 10));
+pivotArray([9, 12, 5, 10, 14, 3, 10], 10);
+
+var minimumSum = function (num) {
+  num = num.toString().split("").sort().join("");
+
+  let num1 = "";
+  let num2 = "";
+
+  for (let i = 0; i < num.length; i = i + 2) {
+    num1 += num[i];
+    num2 += num[i + 1];
+  }
+
+  let sum = 0;
+
+  sum = +num1 + +num2;
+  return sum;
+};
+
+console.log(minimumSum(2932));
