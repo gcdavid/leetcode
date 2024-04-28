@@ -2146,4 +2146,25 @@ var minimumSum = function (num) {
   return sum;
 };
 
-console.log(minimumSum(2932));
+minimumSum(2932);
+
+var areNumbersAscending = function (s) {
+  const words = s.split(" ");
+  let prevNum = -Infinity;
+
+  for (const word of words) {
+    if (!isNaN(word)) {
+      const current = +word;
+      if (current <= prevNum) {
+        return false;
+      }
+      prevNum = current;
+    }
+  }
+
+  return true;
+};
+
+console.log(
+  areNumbersAscending("1 box has 3 blue 4 red 6 green and 12 yellow marbles")
+);
