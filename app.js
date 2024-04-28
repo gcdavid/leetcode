@@ -2165,6 +2165,16 @@ var areNumbersAscending = function (s) {
   return true;
 };
 
-console.log(
-  areNumbersAscending("1 box has 3 blue 4 red 6 green and 12 yellow marbles")
-);
+areNumbersAscending("1 box has 3 blue 4 red 6 green and 12 yellow marbles");
+
+var buildArray = function (nums) {
+  const result = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    result.push(nums[nums[i]]);
+  }
+
+  return result;
+};
+
+console.log(buildArray([0, 2, 1, 5, 3, 4]));
