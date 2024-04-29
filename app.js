@@ -2193,4 +2193,21 @@ var minOperations = function (nums) {
   return increasedCount;
 };
 
-console.log(minOperations([1, 1, 1]));
+minOperations([1, 1, 1]);
+
+var largestAltitude = function (gain) {
+  let maxAltitude = 0;
+  let currentAltitude = 0;
+
+  for (let i = 0; i < gain.length; i++) {
+    currentAltitude += gain[i];
+
+    if (currentAltitude > maxAltitude) {
+      maxAltitude = currentAltitude;
+    }
+  }
+
+  return maxAltitude;
+};
+
+console.log(largestAltitude([-5, 1, 5, 0, -7]));
