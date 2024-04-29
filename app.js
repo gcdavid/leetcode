@@ -2177,4 +2177,20 @@ var buildArray = function (nums) {
   return result;
 };
 
-console.log(buildArray([0, 2, 1, 5, 3, 4]));
+buildArray([0, 2, 1, 5, 3, 4]);
+
+var minOperations = function (nums) {
+  if (nums.length <= 1) return 0;
+  let increasedCount = 0;
+
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] <= nums[i - 1]) {
+      increasedCount = nums[i - 1] - nums[i] + 1;
+      nums[i] = nums[i - 1] + 1;
+    }
+  }
+
+  return increasedCount;
+};
+
+console.log(minOperations([1, 1, 1]));
