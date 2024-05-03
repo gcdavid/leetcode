@@ -2224,4 +2224,27 @@ var minPartitions = function (n) {
   return +max;
 };
 
-console.log(minPartitions("32"));
+minPartitions("9");
+
+var interpret = function (command) {
+  let interpretedWord = "";
+  const map = {
+    G: "G",
+    "()": "o",
+    "(al)": "al",
+  };
+  let completeChar = "";
+
+  for (let c of command) {
+    completeChar += c;
+
+    if (map[completeChar] != undefined) {
+      interpretedWord += map[completeChar];
+      completeChar = "";
+    }
+  }
+
+  return interpretedWord;
+};
+
+console.log(interpret("G()(al)"));
