@@ -2234,17 +2234,37 @@ var interpret = function (command) {
     "(al)": "al",
   };
   let completeChar = "";
-
   for (let c of command) {
     completeChar += c;
-
     if (map[completeChar] != undefined) {
       interpretedWord += map[completeChar];
       completeChar = "";
     }
   }
-
   return interpretedWord;
+
+  //One liner solution
+  // return command.split("()").join("o").split("(al)").join("al")
 };
 
-console.log(interpret("G()(al)"));
+interpret("G()()(al)");
+
+var arrayStringsAreEqual = function (word1, word2) {
+  let fullWord1 = "";
+  let fullWord2 = "";
+
+  for (let i = 0; i < word1.length; i++) {
+    fullWord1 += word1[i];
+  }
+
+  for (let i = 0; i < word2.length; i++) {
+    fullWord2 += word2[i];
+  }
+
+  return fullWord1 === fullWord2;
+
+  //One liner
+  //return word1.join("") === word2.join("");
+};
+
+console.log(arrayStringsAreEqual(["abc", "d", "defg"], ["abcddefg"]));
