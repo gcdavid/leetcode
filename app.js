@@ -2210,4 +2210,18 @@ var largestAltitude = function (gain) {
   return maxAltitude;
 };
 
-console.log(largestAltitude([-5, 1, 5, 0, -7]));
+largestAltitude([-5, 1, 5, 0, -7]);
+
+var minPartitions = function (n) {
+  let max = "0";
+
+  for (let c of n) {
+    if (c > max) {
+      max = c;
+    }
+  }
+
+  return +max;
+};
+
+console.log(minPartitions("32"));
