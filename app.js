@@ -2267,4 +2267,49 @@ var arrayStringsAreEqual = function (word1, word2) {
   //return word1.join("") === word2.join("");
 };
 
-console.log(arrayStringsAreEqual(["abc", "d", "defg"], ["abcddefg"]));
+arrayStringsAreEqual(["abc", "d", "defg"], ["abcddefg"]);
+
+class Node {
+  constructor(val, next = null, random = null) {
+    this.val = val;
+    this.next = next;
+    this.random = random;
+  }
+}
+
+function copyRandomList(head) {
+  if (!head) return null;
+
+  //Step 1: Clone nods and insert them next to original nodes
+  let ptr = head;
+  while (ptr) {
+    const newNode = new Node(ptr.val);
+    newNode.next = ptr.next;
+    ptr.next = newNode;
+    ptr = newNode.next;
+  }
+
+  //Step 2: Assign random pointers to cloned nodes
+  ptr = head;
+  while (ptr) {
+    if (ptr.random) {
+      ptr.next.random = ptr.random.next;
+    }
+    ptr = ptr.next.next;
+  }
+
+  //Step 3: Separate original and cloned linked lists
+  const head_old = head;
+  const head_new = head.next;
+  let ptr_old = head_old;
+  let ptr_new = head_new;
+
+  while (ptr_old) {
+    ptr_old.next = ptr_old.next.next;
+    ptr_new.next = ptr_new.next ? ptr_new.next.next : null;
+    ptr_old = ptr_old.next;
+    ptr_new = ptr_new.next;
+  }
+
+  return head_new;
+}
