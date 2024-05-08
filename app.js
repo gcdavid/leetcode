@@ -2289,6 +2289,8 @@ function copyRandomList(head) {
     ptr = newNode.next;
   }
 
+  console.log(ptr, "newNode");
+
   //Step 2: Assign random pointers to cloned nodes
   ptr = head;
   while (ptr) {
@@ -2313,3 +2315,36 @@ function copyRandomList(head) {
 
   return head_new;
 }
+
+// Create nodes
+const node01 = new Node(7);
+const node2 = new Node(13);
+const node3 = new Node(11);
+const node4 = new Node(10);
+const node5 = new Node(1);
+
+// Link nodes
+node01.next = node2;
+node2.next = node3;
+node3.next = node4;
+node4.next = node5;
+
+// Assign random pointers
+node01.random = null; // Random pointer of node1 is null
+node2.random = node1; // Random pointer of node2 points to node1
+node3.random = node5; // Random pointer of node3 points to node5
+node4.random = node3; // Random pointer of node4 points to node3
+node5.random = node1; // Random pointer of node5 points to node1
+
+copyRandomList(node1);
+
+var removeElement = function (nums, val) {
+  let index = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== val) {
+      nums[index] = nums[i];
+      index++;
+    }
+  }
+  return index;
+};
