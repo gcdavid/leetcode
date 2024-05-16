@@ -162,9 +162,9 @@ findDuplicate([1, 3, 4, 2, 2]);
 
 //   for (let i = nums.length - 1; i >= 0; i--) {
 //     res[i] = start2 * res[i];
-//     console.log(res[i], "res[i]", i, "index");
+
 //     start2 = start2 * nums[i];
-//     console.log(start2, "start2");
+
 //   }
 
 //   return res;
@@ -219,16 +219,11 @@ var mergeIntervals = function (intervals) {
   let result = [previous];
 
   for (let current of intervals) {
-    // console.log(current, "current");
     if (previous[end] >= current[start]) {
-      // console.log(previous[end] + ">=" + current[start]);
-
       //get the max value from the end of prev and current
       previous[end] = Math.max(previous[end], current[end]);
     } else {
-      // console.log(current, "current");
       result.push(current);
-      // console.log(previous + "=" + current);
 
       //assign previous as current
       previous = current;
@@ -2289,8 +2284,6 @@ function copyRandomList(head) {
     ptr = newNode.next;
   }
 
-  console.log(ptr, "newNode");
-
   //Step 2: Assign random pointers to cloned nodes
   ptr = head;
   while (ptr) {
@@ -2389,10 +2382,12 @@ var canJumpII = function (n) {
       totalJumps++;
     }
 
-    if (coverage >= destination) {
+    if (coverage >= length) {
       return totalJumps;
     }
   }
 
   return totalJumps;
 };
+
+console.log(canJumpII([2, 3, 1, 1, 4]));
