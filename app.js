@@ -2371,4 +2371,28 @@ var rotate = function (nums, k) {
   return nums;
 };
 
-console.log(rotate([1, 2, 3, 4, 5, 6, 7], 3));
+rotate([1, 2, 3, 4, 5, 6, 7], 3);
+
+var canJumpII = function (n) {
+  let totalJumps = 0;
+  let length = n.length - 1;
+  let coverage = 0;
+  let lastJumPIdx = 0;
+
+  if (nums.length === 1) return 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    coverage = Math.max(coverage, i + nums[i]);
+
+    if (i === lastJumPIdx) {
+      lastJumPIdx = coverage;
+      totalJumps++;
+    }
+
+    if (coverage >= destination) {
+      return totalJumps;
+    }
+  }
+
+  return totalJumps;
+};
