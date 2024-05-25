@@ -2380,14 +2380,54 @@ var canJumpII = function (n) {
     if (i === lastJumPIdx) {
       lastJumPIdx = coverage;
       totalJumps++;
-    }
 
-    if (coverage >= length) {
-      return totalJumps;
+      if (coverage >= length) {
+        return totalJumps;
+      }
     }
   }
 
   return totalJumps;
 };
 
-console.log(canJumpII([2, 3, 1, 1, 4]));
+canJumpII([2, 3, 1, 1, 4]);
+
+var RandomizedSet = function () {
+  this.map = new Map();
+  this.list = [];
+};
+
+RandomizedSet.prototype.insert = function (val) {
+  if (this.map.has(val)) {
+    return false;
+  }
+  this.map.set(val, this.list.length);
+  this.list.push(val);
+  return true;
+};
+
+RandomizedSet.prototype.remove = function (val) {
+  if (!this.map.has(val)) {
+    return false;
+  }
+  const index = this.map.get(val);
+  const lastElement = this.list[this.list.length - 1];
+
+  // Swap the last element with the element to remove
+  this.list[index] = lastElement;
+  this.map.set(lastElement, index);
+
+  // Remove the last element from the list
+  this.list.pop();
+  this.map.delete(val);
+
+  return true;
+};
+
+/**
+ * @return {number}
+ */
+RandomizedSet.prototype.getRandom = function () {
+  const randomIndex = Math.floor(Math.random() * this.list.length);
+  return this.list[randomIndex];
+};
